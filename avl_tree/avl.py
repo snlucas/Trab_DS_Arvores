@@ -1,12 +1,12 @@
 from bst.bst import BST
-
+from bst.bst import Node
 
 class AVL(BST):
     def __init__(self) -> None:
         super().__init__()
         self.setChildren(None, None)
 
-    def setChildren(self, left, right):
+    def setChildren(self, left: Node, right: Node):
         self.left = left
         self.right = right
 
@@ -35,7 +35,7 @@ class AVL(BST):
     def deepth(self):
         deepL = self.deepthL()
         deepR = self.deepthR()
-        
+
         return 1 + max(deepL, deepR)
 
     def rotateLeft(self):
@@ -64,3 +64,7 @@ class AVL(BST):
             else:
                 self.right.rotateRight()
                 self.rotateLeft()
+
+    def insert(self, node: Node):
+        super().insert(node)
+        self.rebalance()
