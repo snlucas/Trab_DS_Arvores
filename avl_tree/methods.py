@@ -22,7 +22,7 @@ def insercao(f):
         ...
     
 
-def _remove(tree):
+def remocao(tree):
     """Remove um numero inteiro na arvore.
 
     Keyword arguments:
