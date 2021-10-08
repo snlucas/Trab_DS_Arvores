@@ -32,22 +32,21 @@ class AVL(BST):
         # We do have to balance our tree to keep h = O(lg n)
         deep_difference = self.get_node_height(node.left) - self.get_node_height(node.right)
 
-        if deep_difference == -2:
-            # Unbalanced right
-            return 1
-        elif deep_difference == 2:
-            # Unbalanced left
-            return 5
-        elif deep_difference == -1:
-            # Lightly unbalanced right
-            return 2
-        elif deep_difference == 1:
-            # Lightly unbalanced left
-            return 4
+        # Similar to switch case
+        balance_factor = {
+            -2: 1,
+            2: 5,
+            -1: 2,
+            1: 4
+        }
+
+        if deep_difference in balance_factor:
+            return balance_factor[deep_difference]
 
 
     def rotation_ll(self, node: Node) -> Node:
         # Left-Left Rotation
+        # Simple Right Rotation
         # (Heavy left)
         #
         # E.g. leaf: 1, child: 2, root: 3
@@ -68,6 +67,7 @@ class AVL(BST):
 
     def rotation_rr(self, node: Node) -> Node:
         # Right-Right Rotation
+        # Simplet Left Rotation
         # (Heavy right)
         #
         # E.g. leaf: 3, child: 2, root: 1
@@ -87,12 +87,24 @@ class AVL(BST):
 
 
     def rotation_lr(self, node: Node) -> Node:
+        # Left-Right Rotation
+        # Double Right Rotation
+        # (Heavy right in left child)
+        # 
+        # Solution:
+        # ........simple left rotation + simple right rotation
         node.left = self.rotation_rr(node.left)
 
         return self.rotation_rr(node)
 
 
     def rotation_rl(self, node: Node) -> Node:
+        # Right-Left Rotation
+        # Double Left Rotation
+        # (Heavy left in right child)
+        # 
+        # Solution:
+        # ........simple right rotation + simple left rotation
         node.right = self.rotation_ll(node)
 
         return self.rotation_rr(node)
