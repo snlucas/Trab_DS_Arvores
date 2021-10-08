@@ -1,16 +1,15 @@
 from enum import Enum
-from bst import BST, Node
+from avl_tree.bst.bst import BST, Node
 
 
-class AVL(BST, BalanceFactor):
+class AVL(BST):
     def __init__(self) -> None:
         super().__init__()  # Add root
-        self.setChildren(None, None)
 
 
     # === Adding insert ===
-    def insert(self, node: Node) -> None:
-        self.root = self.insert_node(self.root, node)
+    def insert(self, key: int) -> None:
+        self.root = self.insert_node(self.root, key)
 
 
     def insert_node(self, node: Node, key: int) -> Node:
@@ -46,11 +45,13 @@ class AVL(BST, BalanceFactor):
 
 
     # === Adding search ===
-    def search_key(self, key: int) -> bool:
+    def search(self, key: int) -> bool:
         return self.search_node(self.root, key)
 
     def search_node(self, node: Node, key: int) -> bool:
-        if key < node.key:
+        if node is None:
+            return False
+        elif key < node.key:
             # Haven't finded yet, and value is less than what's in the node.
             # So, recursevely search left 'till find it.
             return self.search_node(node.left, key)
@@ -117,7 +118,8 @@ class AVL(BST, BalanceFactor):
         #  1
 
         # tmp -> pivot node
-        tmp, node.left, tmp.right = node.left, tmp.right, node
+        tmp = node.left
+        node.left, tmp.right = tmp.right, node
 
         return tmp
 
@@ -138,7 +140,8 @@ class AVL(BST, BalanceFactor):
         #            1
 
         # tmp -> pivot node
-        tmp, node.right, tmp.left = node.right, tmp.left, node
+        tmp = node.right
+        node.right, tmp.left = tmp.left, node
 
         return tmp
 
