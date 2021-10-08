@@ -1,5 +1,5 @@
 from enum import Enum
-from avl_tree.bst.bst import BST, Node
+from bst.bst import BST, Node
 
 
 class AVL(BST):

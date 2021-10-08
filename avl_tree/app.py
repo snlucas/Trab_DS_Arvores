@@ -1,5 +1,5 @@
 import sys
-from avl_tree.avl.avl import AVL
+from avl.avl import AVL
 
 
 avl = AVL()
