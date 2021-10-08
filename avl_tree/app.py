@@ -1,4 +1,4 @@
-from black import sys
+import sys
 from avl_tree.avl.avl import AVL
 
 
